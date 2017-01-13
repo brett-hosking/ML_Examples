@@ -19,13 +19,16 @@
 
 '''
 TODO: Add scikit-learn and TensorFlow examples
-#import tensorflow as tf
 #import sklearn
 '''
 import numpy as np 
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib import cm
+
+import tensorflow as tf
+
+import sys
 
 
 
@@ -53,6 +56,55 @@ def main():
 
 	# ---- Python+Numpy implementation ---- #
 	print "--- Linear Regression using Python + Numpy ---"
+	Python_Example(x_data,y_data)
+
+	# --- TensorFlow Implementation --- #
+	print "--- Linear Regression using TensorFlow ---"
+	TensorFlow_Example(x_data,y_data)
+
+def TensorFlow_Example(x_data,y_data):
+
+	# initialise tensorflow variable classes
+	# Setup variables
+	t0 = tf.Variable(tf.zeros([1]))
+	t1 = tf.Variable(tf.zeros([1])) 
+	h = t1 * x_data + t0
+
+	# Cost function is the (1/2)MSE
+	cost = tf.divide(tf.reduce_mean(tf.square(h-y_data)),2)
+	# learning rate
+	alpha = 0.01
+	# No. iterations
+	iterations = 1500
+
+	optimiser = tf.train.GradientDescentOptimizer(alpha)
+	train = optimiser.minimize(cost)
+
+	# Initialise tf variables and create session
+	init = tf.global_variables_initializer()
+
+	sess = tf.Session()
+	sess.run(init)
+
+	# Run Gradient Descent
+	for step in xrange(iterations):
+		sess.run(train)
+
+	print "theta: ", (step,sess.run(t0),sess.run(t1))
+	print "Cost:", (step,sess.run(cost))
+
+	#plot the linear regression line with the data
+	fig = plt.figure(figsize=(7, 5),facecolor='w', edgecolor='k')
+	plt.plot(x_data, y_data,'ro')
+	plt.plot(x_data,sess.run(t1)* x_data + sess.run(t0),label="linear regression")
+	plt.xlabel('x')
+	plt.ylabel('y')
+	plt.title('Linear Regression using TensorFlow\'s Gradient Descent')
+	plt.legend()
+	plt.show()
+
+def Python_Example(x_data,y_data):
+	
 	# size of dataset
 	m = len(y_data)
 	# Generate the feature matrix
@@ -86,8 +138,8 @@ def main():
 
 	# Generate cost surface 
 	# generate theta values and produce a 2D meshgrid
-	theta0_vals = np.linspace(t0-5,t0+5,200)
-	theta1_vals = np.linspace(t1-2,t1+2,200)
+	theta0_vals = np.linspace(theta[0]-5,theta[0]+5,200)
+	theta1_vals = np.linspace(theta[1]-2,theta[1]+2,200)
 	T0, T1 = np.meshgrid(theta0_vals, theta1_vals)
 
 	# initialize J_vals to a matrix of 0's
@@ -114,12 +166,12 @@ def main():
 	CS = plt.contour(theta0_vals, theta1_vals, J_vals,np.logspace(-1, 1, 20))
 	plt.scatter(theta[0],theta[1],marker='x',color='r',s=50)
 	plt.clabel(CS, inline=1, fontsize=10)	
-	plt.xlim(t0-5,t0+5)
-	plt.ylim(t1-2,t1+2)
+	plt.xlim(theta[0]-5,theta[0]+5)
+	plt.ylim(theta[1]-2,theta[1]+2)
 	plt.xlabel('$\Theta_0$'); plt.ylabel('$\Theta_1$')
 	plt.title('Cost Surface J($\Theta$)')
 
-	plt.show()
+	#plt.show()
 
 def GradientDescent(X,y,theta,alpha,iterations,m):
 	xTrans = X.transpose() # use numpy version?
