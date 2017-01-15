@@ -17,20 +17,13 @@
 
 '''
 
-'''
-TODO: Add scikit-learn and TensorFlow examples
-#import sklearn
-'''
 import numpy as np 
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib import cm
 
 import tensorflow as tf
-
-import sys
-
-
+from sklearn.linear_model import SGDRegressor 
 
 def main():
 
@@ -62,6 +55,41 @@ def main():
 	print "--- Linear Regression using TensorFlow ---"
 	TensorFlow_Example(x_data,y_data)
 
+	print "--- Linear Regression using scikit-learn ---"
+	Scikit_Learn_Example(x_data,y_data)
+
+	plt.show()
+
+def Scikit_Learn_Example(x_data,y_data):
+
+	# size of dataset
+	m = len(y_data)
+	# Generate the feature matrix
+	X = np.transpose(np.array([np.ones(m),x_data])) 
+
+	# Initialise theta vector
+	theta = np.array(np.zeros(2)) 
+
+	# learning rate
+	alpha = 0.01
+	# No. iterations
+	iterations = 1500
+
+	# Create and fit the model
+	model = SGDRegressor(loss='squared_loss',n_iter=iterations,
+						learning_rate='constant',eta0=alpha )
+	model.fit(X, y_data, coef_init=theta)
+
+	#plot the linear regression line with the data
+	fig = plt.figure(figsize=(7, 5),facecolor='w', edgecolor='k')
+	plt.plot(x_data, y_data,'ro')
+	plt.plot(x_data,model.predict(X),label="linear regression")
+	plt.xlabel('x')
+	plt.ylabel('y')
+	plt.title('Linear Regression using scikit-learn\'s Gradient Descent')
+	plt.legend()
+	# plt.show()
+
 def TensorFlow_Example(x_data,y_data):
 
 	# initialise tensorflow variable classes
@@ -70,8 +98,8 @@ def TensorFlow_Example(x_data,y_data):
 	t1 = tf.Variable(tf.zeros([1])) 
 	h = t1 * x_data + t0
 
-	# Cost function is the (1/2)MSE
-	cost = tf.divide(tf.reduce_mean(tf.square(h-y_data)),2)
+	# Cost function is the MSE
+	cost = tf.reduce_mean(tf.square(h-y_data))
 	# learning rate
 	alpha = 0.01
 	# No. iterations
@@ -90,8 +118,8 @@ def TensorFlow_Example(x_data,y_data):
 	for step in xrange(iterations):
 		sess.run(train)
 
-	print "theta: ", (step,sess.run(t0),sess.run(t1))
-	print "Cost:", (step,sess.run(cost))
+	# print "theta: ", (step,sess.run(t0),sess.run(t1))
+	# print "Cost:", (step,sess.run(cost))
 
 	#plot the linear regression line with the data
 	fig = plt.figure(figsize=(7, 5),facecolor='w', edgecolor='k')
@@ -101,7 +129,7 @@ def TensorFlow_Example(x_data,y_data):
 	plt.ylabel('y')
 	plt.title('Linear Regression using TensorFlow\'s Gradient Descent')
 	plt.legend()
-	plt.show()
+	#plt.show()
 
 def Python_Example(x_data,y_data):
 	
@@ -122,8 +150,8 @@ def Python_Example(x_data,y_data):
 	iterations = 1500
 	theta = GradientDescent(X,y_data,theta,alpha,iterations,m)
 	# Calculate the cost after fitting
-	cost = Cost(X,theta,m,y_data)
-	print "theta: ", theta, " cost: ", cost
+	# cost = Cost(X,theta,m,y_data)
+	# print "theta: ", theta, " cost: ", cost
 
 	# plot the hypothesis with the learnt fitting values
 	fig = plt.figure(figsize=(7, 5),facecolor='w', edgecolor='k')
@@ -166,7 +194,7 @@ def Python_Example(x_data,y_data):
 	CS = plt.contour(theta0_vals, theta1_vals, J_vals,np.logspace(-1, 1, 20))
 	plt.scatter(theta[0],theta[1],marker='x',color='r',s=50)
 	plt.clabel(CS, inline=1, fontsize=10)	
-	plt.xlim(theta[0]-5,theta[0]+5)
+	plt.xlim(theta[0]-4,theta[0]+4)
 	plt.ylim(theta[1]-2,theta[1]+2)
 	plt.xlabel('$\Theta_0$'); plt.ylabel('$\Theta_1$')
 	plt.title('Cost Surface J($\Theta$)')
@@ -188,7 +216,7 @@ def Cost(X,theta,m,y):
 
 	h = np.dot(X,theta)
 	S = np.sum((h - y)**2)
-	J = S / (2*m)
+	J = S / (m) # or 2*m
 
 	return J
 
