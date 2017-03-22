@@ -2,7 +2,7 @@
 
 Examples of Machine Learning techniques using Python + TensorFlow + scikit-learn
 
-###Techniques include:
+### Techniques include:
 
 1. Linear Regression
 2. Logistic Regression
