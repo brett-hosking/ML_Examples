@@ -45,7 +45,7 @@ def main():
 
 	# Point for classification
 	point = [0,0.25]
-	# Probability of point (x1=45,x2=85) being part of class 1
+	# Probability of point being part of class 1
 	prob = sigmoid(np.dot(featuremapping(point[0], point[1])[0], theta_opt))
 	print "Probability of new data point being part of class 1: ", prob
 
