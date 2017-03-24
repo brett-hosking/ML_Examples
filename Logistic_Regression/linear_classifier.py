@@ -8,7 +8,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy.optimize as opt
-
+import sys
 
 def main():
 
@@ -45,18 +45,33 @@ def main():
 	xpoints = np.linspace(min(x_data[:,0])-2,max(x_data[:,0]+2),num=m+4)
 	boundary = decision_boundary(xpoints,theta_opt)
 
+	# Point for classification
+	point = [45,85]
+	# Probability of point (x1=45,x2=85) being part of class 1
+	prob = sigmoid(np.dot([1, point[0], point[1]], theta_opt))
+	print "Probability of new data point being part of class 1: ", prob
+
 	# --- Plot Decision Boundary --- #
 	pos,neg = np.where(y_data==1),np.where(y_data==0)
 	fig = plt.figure(figsize=(7, 5),facecolor='w', edgecolor='k')
-	plt.scatter(x_data[pos,0],x_data[pos,1], marker='o',c='r')
-	plt.scatter(x_data[neg,0],x_data[neg,1], marker='x',c='b')
-	plt.plot(xpoints,boundary,linewidth=1.5,c='k')
+	plt.scatter(x_data[pos,0],x_data[pos,1], marker='o',c='r',label='class 1')
+	plt.scatter(x_data[neg,0],x_data[neg,1], marker='x',c='b', label='class 2')
+	plt.plot(xpoints,boundary,linewidth=1.5,c='k', label='hypothesis')
 	plt.xlim([min(x_data[:,0]-2),max(x_data[:,0])+2])
 	plt.ylim([min(x_data[:,1]-2),max(x_data[:,1])+2])
+	plt.scatter(point[0],point[1],marker='*',c='green',s=50,label='new point')
 	plt.xlabel("$x_1$")
 	plt.ylabel("$x_2$")
 	plt.title("Logisitic Regression")
+	plt.legend(loc='best', prop={'size':9},scatterpoints=1)
 	plt.show()
+
+	# Predict Accuracy on Training Set
+	print "Accuracy on Training Set: ", accuracy(theta_opt,X,y_data), "%"
+
+def accuracy(theta,X,labels):
+	p = sigmoid(np.dot(X, theta))>=0.5 
+	return np.mean(p == labels) * 100.0
 
 def decision_boundary(xpoints,theta):
 	# plot the decision boundary between the two classes
