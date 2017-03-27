@@ -17,7 +17,8 @@ def main():
 	y_data = data[:,2]
 
 	# Feature Mapping - Add polynomial features
-	X = featuremapping(x_data[:,0],x_data[:,1],degree=6)
+	degree = 6
+	X = featuremapping(x_data[:,0],x_data[:,1],degree=degree)
 
 	# -- Training set and Feauture set size-- #
 	m = float(np.shape(X)[0])	# m training samples
@@ -41,12 +42,12 @@ def main():
 
 	# Calculate the desicision boundary
 	grid = [np.linspace(-1, 1.5, 50),np.linspace(-1, 1.5, 50)]
-	z = nonlin_decision_boundary(theta_opt,grid)
+	z = nonlin_decision_boundary(theta_opt,grid,degree)
 
 	# Point for classification
 	point = [0,0.25]
 	# Probability of point being part of class 1
-	prob = sigmoid(np.dot(featuremapping(point[0], point[1])[0], theta_opt))
+	prob = sigmoid(np.dot(featuremapping(point[0], point[1],degree=degree)[0], theta_opt))
 	print "Probability of new data point being part of class 1: ", prob
 
 	# --- Plot Decision Boundary --- #
@@ -102,13 +103,13 @@ def grad_reg(theta,X,y,Lambda):
 
 	return grad
 
-def nonlin_decision_boundary(theta,grid):
+def nonlin_decision_boundary(theta,grid,degree):
 
 	z = np.zeros(( len(grid[0]), len(grid[1]) ))
 	# Evaluate z = theta*x over the grid
 	for i in xrange(len(grid[0])):
 	    for j in xrange(len(grid[1])):
-	        z[i,j] = np.dot(featuremapping(np.array([grid[0][i]]), np.array([grid[1][j]])),theta)
+	        z[i,j] = np.dot(featuremapping(np.array([grid[0][i]]), np.array([grid[1][j]]),degree=degree),theta)
 	z = np.transpose(z) 
 	
 	return z
