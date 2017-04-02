@@ -19,7 +19,7 @@ def main():
 
 	### --- Generate Data --- ###
 	# Load MAT file
-	mat = sio.loadmat("digit_data")
+	mat = sio.loadmat("../data/digit_data")
 	'''	
 		5000 Trainning examples
 		20x20 pixels in each (400)
