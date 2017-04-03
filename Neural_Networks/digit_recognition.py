@@ -62,7 +62,7 @@ def main():
 		Theta2: (10,26)  - 10 units (classes) in the output layer. 25 + bias from previous layer
 	'''
 
-	# Feedforward Propagration and Prediction
+	# Feedforward and Prediction
 	pred = predict(Theta1,Theta2,X)
 	print "Accuracy: ", np.mean(pred+1 == y)*100.0, "%" 
 
