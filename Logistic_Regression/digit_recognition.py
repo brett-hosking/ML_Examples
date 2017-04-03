@@ -15,6 +15,12 @@ import numpy as np
 import scipy.optimize as opt
 import scipy.io as sio
 
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
+
+Display = False # Display 100 examples
+Scikit  = False	# Run Scikit-Learn example
+
 def main():
 
 	### --- Generate Data --- ###
@@ -33,37 +39,49 @@ def main():
 	n = np.shape(X)[1] # features 
 
 	### ---------- Display some elements from the dataset ---------- ###
-	# Randomly select 100 data points to display
-	rand_indices = np.random.permutation(m);
-	sel = X[rand_indices[0:100], :]
+	if Display:
+		# Randomly select 100 data points to display
+		rand_indices = np.random.permutation(m);
+		sel = X[rand_indices[0:100], :]
 
-	# Display the randomly selected digits
-	displayData(sel)
+		# Display the randomly selected digits
+		displayData(sel)
 	### ------------------------------------------------------------ ###
 
 
 	### ----------------------- Scikit Learn ----------------------- ###
-	print "\nScikit Learn Example"
-	from sklearn.linear_model import LogisticRegression
-	logreg = LogisticRegression(C=10, penalty='l2', solver='liblinear',intercept_scaling=0.1)
-	logreg.fit(X,y.ravel())
-	pred2 = logreg.predict(X)
-	print('Accuracy on Training Set: {} %'.format(np.mean(pred2 == y.ravel())*100))
+	if Scikit:
+		print "\nScikit Learn Example"
+		from sklearn.linear_model import LogisticRegression
+		logreg = LogisticRegression(C=10, penalty='l2', solver='liblinear',intercept_scaling=0.1)
+		logreg.fit(X,y.ravel())
+		pred2 = logreg.predict(X)
+		print('Accuracy on Training Set: {} %'.format(np.mean(pred2 == y.ravel())*100))
 	### ------------------------------------------------------------ ###
 
 
 	### ------------- Vectorise Logistic Regression ------------- ###
-	print "\nPython + Numpy + Scipy Example"
+	print "\nLearning parameters on Training Set"
 	# Add ones to X matrix
 	X = np.column_stack((np.ones(m),X))
 	num_labels = 10
 	Lambda = 0.1
 	all_theta = oneVall(X,y,num_labels,Lambda,m,n)
-	print "Accuracy on Training Set: ", np.mean(pred_oneVall(all_theta,X,y) == y%10)*100.0, "%" 
+	print "Accuracy on Training Set: ", np.mean(pred_oneVall(all_theta,X) == y%10)*100.0, "%" 
+
+	# Display samples and predict
+	rp = np.random.permutation(X.shape[0])
+	dispsamps = 10 # number of samples to display
+	for i in xrange(dispsamps):
+		pred = pred_oneVall(all_theta,X[rp[i],:])
+		print('Logisitic Regression Prediction: {:d} (actual digit {:d})'.format((pred[0])%10, y[rp[i]]%10)) 
+		displaydigit(rp[i], X)
 	### --------------------------------------------------------- ###
 
 
-def pred_oneVall(all_theta,X,labels):
+def pred_oneVall(all_theta,X):
+	if X.ndim == 1:
+		X = np.reshape(X, (-1,X.shape[0]))
 	return np.argmax(sigmoid( np.dot(X,all_theta.T) ), axis=1)
 
 
@@ -95,9 +113,14 @@ def sigmoid(z):
 
 	return np.divide(1.0, (np.add(1.0,np.exp(-z)) ) )
 
+def displaydigit(idx,X):
+
+	pixels = X[idx,1:]
+	digit = np.reshape(pixels, (20,20),order='F')
+	plt.imshow(digit,cmap='gray')
+	plt.show()
+
 def displayData(X):
-	import matplotlib.pyplot as plt
-	import matplotlib.image as mpimg
 
 	# Create a greyscale image of the digits (m^(1/2))x(m^(1/2))
 	example_width = round(np.sqrt(np.size(X, 1)))
