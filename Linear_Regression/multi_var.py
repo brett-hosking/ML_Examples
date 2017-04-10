@@ -123,8 +123,7 @@ def FeatureNorm(X):
 	for i in xrange(X.shape[1]):
 		mu[:,i] 	= np.mean(X[:,i])
 		sigma[:,i] 	= np.std(X[:,i])
-		Xnorm[:,i]		= (X[:,i] - float(mu[:,i]))/float(sigma[:,i])
-
+		Xnorm[:,i]	= (X[:,i] - float(mu[:,i]))/float(sigma[:,i])
 	return Xnorm,mu,sigma
 
 def NormEq(X,y):
