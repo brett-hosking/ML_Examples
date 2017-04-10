@@ -65,7 +65,7 @@ def main():
 		initial_nn_params = np.r_[initial_Theta1.ravel(), initial_Theta2.ravel()]
 
 		# Train 
-		maxiter = 30
+		maxiter = 40
 		myargs = (input_layer_size, hidden_layer_size, num_labels, X, y, Lambda,float(m))
 		results = opt.minimize(nnCost, x0=initial_nn_params, args=myargs, options={'disp': True, 'maxiter':maxiter}, method="L-BFGS-B", jac=True)
 
@@ -95,6 +95,9 @@ def main():
 	# Feedforward and Prediction
 	pred = predict(Theta1,Theta2,X)
 	print "Accuracy: ", np.mean(pred+1 == y)*100.0, "%" 
+
+	# Visualise Neural Network's Hidden Layer
+	displayData(Theta1[:,1:])
 
 	# Display samples and predict
 	rp = np.random.permutation(X.shape[0])
@@ -173,7 +176,7 @@ def displaydigit(idx,X):
 def displayData(X):
 
 	# Create a greyscale image of the digits (m^(1/2))x(m^(1/2))
-	example_width = round(np.sqrt(np.size(X, 1)))
+	example_width = int(round(np.sqrt(np.size(X, 1))))
 
 	# samples, features
 	[m,n] = np.shape(X)
@@ -188,8 +191,10 @@ def displayData(X):
 	pad = 1
 
 	# Array to display
-	display_area = np.array(np.ones((pad + disp_rows * (example_height + pad),
-									pad + disp_cols * (example_width + pad)	 )) )
+	display_area = np.array(np.ones((int(pad + disp_rows * (example_height + pad)),
+									int(pad + disp_cols * (example_width + pad)	 ))) )
+
+	
 
 	# wrap each example into a patch
 	cur_ex = 0 
