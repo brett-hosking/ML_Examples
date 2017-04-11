@@ -18,7 +18,7 @@ import matplotlib.image as mpimg
 
 import sys
 
-Display 	= False # Display a random 100 samples
+Display 	= True # Display a random 100 samples
 Learn 		= True # True: Learn parameters. False: Load learnt parameters
 
 def main():
