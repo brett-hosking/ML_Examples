@@ -16,7 +16,7 @@ import scipy.optimize as opt
 def main():
 
 	# Load MAT file
-	mat = sio.loadmat("ex5data1")
+	mat = sio.loadmat("../data/ex5data1")
 
 	# Training Data
 	'''	
