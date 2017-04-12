@@ -12,7 +12,7 @@ import scipy.optimize as opt
 def main():
 
 	# ---- Import Data ---- #
-	data = np.loadtxt("ex2data2.txt",delimiter=',')
+	data = np.loadtxt("../data/ex2data2.txt",delimiter=',')
 	x_data = data[:,[0,1]]
 	y_data = data[:,2]
 
