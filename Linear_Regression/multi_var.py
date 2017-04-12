@@ -13,7 +13,7 @@ from matplotlib import cm
 
 def main():
 
-	data = np.loadtxt("ex1data2.txt",delimiter=',')
+	data = np.loadtxt("../data/ex1data2.txt",delimiter=',')
 	x_data = data[:,[0,1]]
 	y_data = data[:,2]
 
