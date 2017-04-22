@@ -56,14 +56,14 @@ def main():
 
 	### --------------------------- TensorFlow NN --------------------------- ###
 	# -- Create TensorFlow Variables -- #
-	x = tf.placeholder("float", [None, input_layer_size])			# Feature vector 	- (None indicates the dimension can be of any size)
-	W = tf.Variable(tf.zeros([input_layer_size,num_labels])) 		# Weights 		    - initialised with zeros
-	b = tf.Variable(tf.zeros([num_labels]))							# Bias 	  		 	- initialised with zeros
+	x = tf.placeholder("float", [None, input_layer_size])		# Feature vector	- (None indicates the dimension can be of any size)
+	W = tf.Variable(tf.zeros([input_layer_size,num_labels]))	# Weights			- initialised with zeros
+	b = tf.Variable(tf.zeros([num_labels]))						# Bias				- initialised with zeros
 
 	# -- Cost Function and Optimiser -- #
-	y = tf.nn.softmax(tf.matmul(x,W) + b)							# Prediction
-	y_ = tf.placeholder("float", [None,num_labels])					# Placeholder for correct labels
-	cross_entropy = -tf.reduce_sum(y_*tf.log(y))					# Cost	
+	y = tf.nn.softmax(tf.matmul(x,W) + b)						# Prediction
+	y_ = tf.placeholder("float", [None,num_labels])				# Placeholder for correct labels
+	cross_entropy = -tf.reduce_sum(y_*tf.log(y))				# Cost	
 	train_step = tf.train.GradientDescentOptimizer(alpha).minimize(cross_entropy)		
 
 	# -- Setup TensorFlow Session -- #	
