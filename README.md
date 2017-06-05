@@ -10,3 +10,7 @@ Examples of Machine Learning techniques using Python + TensorFlow + scikit-learn
 	* <a href="http://nbviewer.ipython.org/github/brett-hosking/ML_Examples/blob/master/Notebooks/Linear_Regression_Optimisation.ipynb" target="_blank">Optimisation Techniques Part 1</a>	
 	* <a href="http://nbviewer.ipython.org/github/brett-hosking/ML_Examples/blob/master/Notebooks/Linear_Regression_Optimisation_Pt2.ipynb" target="_blank">Optimisation Techniques Part 2</a>
 	* <a href="http://nbviewer.ipython.org/github/brett-hosking/ML_Examples/blob/master/Notebooks/Linear_Regression_Bias_Variance_Learning-Curves.ipynb" target="_blank">Bias and Variance</a>
+
+* Polynomial Regression
+	* <a href="http://nbviewer.ipython.org/github/brett-hosking/ML_Examples/blob/master/Notebooks/Polynomial_Regression_Regularisation.ipynb" target="_blank">Feature_Mapping</a>
+	* Selecting regularisation parameter
