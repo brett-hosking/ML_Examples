@@ -14,3 +14,6 @@ Examples of Machine Learning techniques using Python + TensorFlow + scikit-learn
 * Polynomial Regression
 	* <a href="http://nbviewer.ipython.org/github/brett-hosking/ML_Examples/blob/master/Notebooks/Polynomial_Regression_Regularisation.ipynb" target="_blank">Feature_Mapping</a>
 	* Selecting regularisation parameter
+
+* Logistic Regression
+	* <a href="http://nbviewer.ipython.org/github/brett-hosking/ML_Examples/blob/master/Notebooks/Logistic_Regression_Linear.ipynb" target="_blank">Linear Decision Boundary</a>
