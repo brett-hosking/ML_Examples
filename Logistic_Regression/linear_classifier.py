@@ -83,7 +83,16 @@ def decision_boundary(xpoints,theta):
 def costFunc(theta,X,y,m):
 
 	H = sigmoid(np.dot(X,theta))
-	return (1 / m) * np.sum( -np.transpose(y)*np.log(H) - np.transpose(1-y)*np.log(1 - H) )
+	return (1 / m) * np.sum( -np.transpose(y)*np.log(H) - np.transpose(1-y)*np.log((1 - H) + 1e-7) )
+
+# def costFunc(theta,X,y,m):
+
+# 	H = sigmoid(np.dot(X,theta))
+# 	p1 = (1 / m)
+# 	p2 = -np.transpose(y)*np.log(H)
+# 	p3 = np.transpose(1-y)
+# 	p4 = np.log((1 - H) + 1e-7)
+# 	return (1 / m) * np.sum( -np.transpose(y)*np.log(H) - np.transpose(1-y)*np.log((1 - H) + 1e-7) )
 
 
 def gradFunc(theta,X,y,m):
