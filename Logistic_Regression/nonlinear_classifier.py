@@ -20,7 +20,7 @@ def main():
 	degree = 6
 	X = featuremapping(x_data[:,0],x_data[:,1],degree=degree)
 
-	# -- Training set and Feauture set size-- #
+	# -- Training set and Feature set size-- #
 	m = float(np.shape(X)[0])	# m training samples
 	n = np.shape(X)[1] -1		# n features
 
