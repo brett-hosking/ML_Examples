@@ -20,6 +20,9 @@ Examples of Machine Learning techniques using Python + TensorFlow + scikit-learn
 	* <a href="http://nbviewer.ipython.org/github/brett-hosking/ML_Examples/blob/master/Notebooks/Logistic_Regression_nonlinear.ipynb" target="_blank">Feature Mapping + Regularisation</a>
 	* <a href="http://nbviewer.ipython.org/github/brett-hosking/ML_Examples/blob/master/Notebooks/Logistic_Regression_MNIST.ipynb" target="_blank">Digit Classification (MNIST)</a>
 
-* Support Vector Machine
+* Support Vector Machines
 	* <a href="http://nbviewer.ipython.org/github/brett-hosking/ML_Examples/blob/master/Notebooks/SVM_linear.ipynb" target="_blank">Linear Decision Boundary</a>
 	* <a href="http://nbviewer.ipython.org/github/brett-hosking/ML_Examples/blob/master/Notebooks/SVM_nonlinear.ipynb" target="_blank">Non-Linear Decision Boundary</a>
+
+* Neural Networks
+	* <a href="http://nbviewer.ipython.org/github/brett-hosking/ML_Examples/blob/master/Notebooks/Neural_Network_MNIST.ipynb" target="_blank">Single Layer Digit Classification (MNIST)</a>
