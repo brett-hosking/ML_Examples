@@ -22,3 +22,4 @@ Examples of Machine Learning techniques using Python + TensorFlow + scikit-learn
 
 * Support Vector Machine
 	* <a href="http://nbviewer.ipython.org/github/brett-hosking/ML_Examples/blob/master/Notebooks/SVM_linear.ipynb" target="_blank">Linear Decision Boundary</a>
+	* <a href="http://nbviewer.ipython.org/github/brett-hosking/ML_Examples/blob/master/Notebooks/SVM_nonlinear.ipynb" target="_blank">Non-Linear Decision Boundary</a>
